@@ -19,6 +19,11 @@ typedef struct print
 	int (*f)(va_list, char *, unsigned int);
 } print_t;
 
+int _putchar(char c);
+int print_char(int c);
+int print_string(const char *str);
+int print_percent(void);
+int _printf(const char *format, ...);
 int _printf(const char *format, ...);
 int print_prg(va_list __attribute__((unused)), char *, unsigned int);
 
