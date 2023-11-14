@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
 
 /**
  * _printf - Custom printf function
@@ -7,7 +6,6 @@
  * @...: Variable number of arguments
  * Return: Number of characters printed (excluding the null byte)
  */
-
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -17,36 +15,22 @@ int _printf(const char *format, ...)
 
 	while (*format)
 	{
-		if (*format == '%')
+		if (*format == '%' && (*(format + 1) == 'd' || *(format + 1) == 'i'))
 		{
-			format++;
-
-			switch (*format)
-			{
-				case 'c':
-					count += print_char(va_arg(args, int));
-					break;
-
-				case 's':
-					count += print_string(va_arg(args, const char*));
-					break;
-
-				case '%':
-					count += print_percent();
-					break;
-
-				default:
-					count += print_percent();
-					count += print_char(*format);
-			}
+			int num = va_arg(args, int);
+			count += print_int(num);
+            format += 2;
 		}
 		else
 		{
-			count += print_char(*format);
+			_putchar(*format);
+			count++;
 		}
 
 		format++;
 	}
+
 	va_end(args);
-	return (0);
+
+	return (count);
 }
